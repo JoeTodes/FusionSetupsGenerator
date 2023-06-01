@@ -178,7 +178,7 @@ class GenerateSetupsCreatedHandler(adsk.core.CommandCreatedEventHandler):
             templates = getTemplates()
             listItems = templateListInput.listItems
             for template in templates:
-                if template.name == 'Wikihouse Blocks v8':
+                if template.name == 'Wikihouse Blocks v10':
                     listItems.add(template.name, True, '')
                 else:
                     listItems.add(template.name, False, '')
