@@ -69,8 +69,8 @@ def generateSetups(template):
     for setup in setups:
         setup.createFromCAMTemplate(template)
         
-        faces = getPocketFaces(setup.models)
-        pocketOp = None
+        
+        pocketOp: adsk.cam.Operation = None
         for op in setup.operations:
             
             if op.name.startswith('POCKET'):
@@ -80,13 +80,17 @@ def generateSetups(template):
             ui.messageBox('No Pocket operation in template')
             return
         
-        pocketGeometryParam: adsk.cam.CadContours2dParameterValue = pocketOp.parameters.itemByName('pockets').value
-        selections = pocketGeometryParam.getCurveSelections()
-        selections.clear()
-        selection = selections.createNewPocketSelection()
-        selection.inputGeometry=faces
-        pocketGeometryParam.applyCurveSelections(selections)
-        cam.generateToolpath(pocketOp)
+        faces = getPocketFaces(setup.models)
+        if len(faces) > 0:
+            pocketGeometryParam: adsk.cam.CadContours2dParameterValue = pocketOp.parameters.itemByName('pockets').value
+            selections = pocketGeometryParam.getCurveSelections()
+            selections.clear()
+            selection = selections.createNewPocketSelection()
+            selection.inputGeometry=faces
+            pocketGeometryParam.applyCurveSelections(selections)
+            cam.generateToolpath(pocketOp)
+        else:
+            pocketOp.deleteMe()
 
 #finds all faces that have all vertices with z between 8mm and 10mm
 def getPocketFaces(manufacturingModels):
