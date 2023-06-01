@@ -58,7 +58,7 @@ def getTemplates():
             
 # Creates setups for each nesting sheet and applies the selected template
 def generateSetups(template):
-    setups = cam.setups
+    setups: adsk.cam.Setups = cam.setups
         
     for model in cam.manufacturingModels:
         # TODO - handle QTY > 1
@@ -70,12 +70,23 @@ def generateSetups(template):
         setup.createFromCAMTemplate(template)
         
         faces = getPocketFaces(setup.models)
-        pocketGeometryParam: adsk.cam.CadContours2dParameterValue = setup.operations[2].parameters.itemByName('pockets').value
+        pocketOp = None
+        for op in setup.operations:
+            
+            if op.name.startswith('POCKET'):
+                pocketOp = op
+                break
+        if (pocketOp is None):
+            ui.messageBox('No Pocket operation in template')
+            return
+        
+        pocketGeometryParam: adsk.cam.CadContours2dParameterValue = pocketOp.parameters.itemByName('pockets').value
         selections = pocketGeometryParam.getCurveSelections()
+        selections.clear()
         selection = selections.createNewPocketSelection()
         selection.inputGeometry=faces
         pocketGeometryParam.applyCurveSelections(selections)
-        cam.generateToolpath(setup.operations[2])
+        cam.generateToolpath(pocketOp)
 
 #finds all faces that have all vertices with z between 8mm and 10mm
 def getPocketFaces(manufacturingModels):

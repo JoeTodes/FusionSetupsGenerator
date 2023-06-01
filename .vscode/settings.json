@@ -1,6 +1,6 @@
 {
 	"python.autoComplete.extraPaths": [
-		"C:/Users/Joe/AppData/Roaming/Autodesk/Autodesk Fusion 360/API/Python/defs"
+		"C:\\Users\\Joe\\AppData\\Roaming\\Autodesk\\Autodesk Fusion 360\\API\\Python\\defs"
 	],
 	"python.analysis.extraPaths": [
 		"C:/Users/Joe/AppData/Roaming/Autodesk/Autodesk Fusion 360/API/Python/defs"
@@ -9,6 +9,6 @@
 	"fusion-360-helper.enabled": true,
 	"fusion-360-helper.python.pythonPath": "C:\\Users\\Joe\\AppData\\Local\\Autodesk\\webdeploy\\production\\fe3aabe314e26a9de16467d8eecb0c30acd7712b\\Python\\python.exe",
 	"fusion-360-helper.python.extraLibs": [
-		"C:\\Users\\Joe\\AppData\\Roaming\\Autodesk\\Autodesk Fusion 360\\API\\Python\\defs\\adsk"
+		"C:\\Users\\Joe\\AppData\\Roaming\\Autodesk\\Autodesk Fusion 360\\API\\Python\\defs"
 	]
 }
