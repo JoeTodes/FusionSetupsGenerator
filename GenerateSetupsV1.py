@@ -64,6 +64,18 @@ def generateSetups(template):
         # TODO - handle QTY > 1
         setupInput = setups.createInput(adsk.cam.OperationTypes.MillingOperation)
         setupInput.models=[model.occurrence]
+        setupInput.stockMode=adsk.cam.SetupStockModes.FixedBoxStock
+        setupParams = setupInput.parameters
+        setupParams.itemByName('job_stockFixedX').value.value=120.0
+        setupParams.itemByName('job_stockFixedXOffset').value.value=0.0
+        setupParams.itemByName('job_stockFixedY').value.value=240.0
+        setupParams.itemByName('job_stockFixedYOffset').value.value=0.0
+        setupParams.itemByName('job_stockFixedZ').value.value=1.8
+        setupParams.itemByName('job_stockFixedZOffset').value.value=0.0
+        setupParams.itemByName('job_groundStockModelOrigin').value.value=True
+        setupParams.itemByName('wcs_orientation_mode').value.value="modelOrientation"
+        setupParams.itemByName('wcs_origin_mode').value.value="modelOrigin"
+        
         setups.add(setupInput)
         
     for setup in setups:
